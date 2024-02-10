@@ -1,6 +1,67 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Prosedur untuk mencetak array
+void printArray(char result[], char remain[], char arr[], int resultSize, int remainSize, int arrSize, int t);
+
+// Prosedur untuk menghitung panjang array
+void calculateLengthArray(char arr[], int *length);
+
+// Prosedur untuk mencari huruf yang berurutan
+void findConsecutive(char arr[], char result[], int *arrSize, int *resultSize);
+
+// Prosedur untuk memindahkan array ke result
+void arrToResult(char arr[], char result[], char remain[], int *arrSize, int *resultSize, int *remainSize, int t);
+
+// Prosedur untuk memindahkan array ke remain
+void arrToRemain(char arr[], char result[], char remain[], int *arrSize, int *resultSize, int *remainSize, int t);
+
+// Prosedur untuk menginisialisasi array
+void initalizeArr(char arr[], char result[], char remain[], int *arrSize, int *resultSize, int *remainSize);
+
+// Prosedur untuk mengurutkan array dengan insertion sort
+void insertionSort(char arr[], int n);
+
+// Prosedur untuk menggabungkan dan mengurutkan array
+void sortAndMergeArray(char arr1[], char arr2[], int *resultSize, char result[], int *remainSize);
+
+int main()
+{
+    char arr[11] = {'E', 'K', 'A', 'C', 'D', 'O', 'L', 'M', 'N', 'F', 'G'};
+    // char arr[11] = {'N', 'M', 'L', 'K', 'J', 'I', 'H', 'G', 'F', 'E', 'D'};
+    // char arr[11] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'};
+
+    char result[11];
+    char remain[11];
+
+    int resultSize = 0, remainSize = 0, arrSize = 11, t = 1;
+
+    for (int i = 0; i < 11; i++)
+    {
+        // Assuming null character '\0' denotes empty element for avoid garbage value like $, #, etc
+        result[i] = '\0';
+        remain[i] = '\0';
+    }
+
+    while (arrSize > 0 || remainSize > 0)
+    {
+        if (resultSize == 0)
+        {
+            arrToResult(arr, result, remain, &arrSize, &resultSize, &remainSize, t);
+        }
+        else if (remainSize == 0)
+        {
+            arrToRemain(arr, result, remain, &arrSize, &resultSize, &remainSize, t);
+        }
+        else
+        {
+            sortAndMergeArray(result, remain, &resultSize, result, &remainSize);
+            printArray(result, remain, arr, resultSize, remainSize, arrSize, t);
+        }
+        t++;
+    }
+    return 0;
+}
 void printArray(char result[], char remain[], char arr[], int resultSize, int remainSize, int arrSize, int t)
 {
     printf("t = %i, ", t);
@@ -48,14 +109,6 @@ void calculateLengthArray(char arr[], int *length)
         i++;
     }
     *length = i;
-}
-
-void printSingleArray(char arr[], int length)
-{
-    for (int i = 0; i < length; i++)
-    {
-        printf("arr[%i] = %c\n", i, arr[i]);
-    }
 }
 
 void findConsecutive(char arr[], char result[], int *arrSize, int *resultSize)
@@ -173,42 +226,4 @@ void sortAndMergeArray(char arr1[], char arr2[], int *resultSize, char result[],
 
     *resultSize = totalLength;
     *remainSize = 0;
-}
-
-int main()
-{
-    char arr[11] = {'E', 'K', 'A', 'C', 'D', 'O', 'L', 'M', 'N', 'F', 'G'};
-    // char arr[11] = {'N', 'M', 'L', 'K', 'J', 'I', 'H', 'G', 'F', 'E', 'D'};
-    // char arr[11] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'};
-
-    char result[11];
-    char remain[11];
-
-    int resultSize = 0, remainSize = 0, arrSize = 11, t = 1;
-
-    for (int i = 0; i < 11; i++)
-    {
-        // Assuming null character '\0' denotes empty element for avoid garbage value like $, #, etc
-        result[i] = '\0';
-        remain[i] = '\0';
-    }
-
-    while (arrSize > 0 || remainSize > 0)
-    {
-        if (resultSize == 0)
-        {
-            arrToResult(arr, result, remain, &arrSize, &resultSize, &remainSize, t);
-        }
-        else if (remainSize == 0)
-        {
-            arrToRemain(arr, result, remain, &arrSize, &resultSize, &remainSize, t);
-        }
-        else
-        {
-            sortAndMergeArray(result, remain, &resultSize, result, &remainSize);
-            printArray(result, remain, arr, resultSize, remainSize, arrSize, t);
-        }
-        t++;
-    }
-    return 0;
 }
