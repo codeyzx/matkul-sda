@@ -1,15 +1,29 @@
 #include <stdio.h>
 
+// to display diamond pattern
 void display(int n);
+// to display upper part of diamond
 void upper(int j, int n, int i);
+// to display lower part of diamond
 void lower(int j, int n, int i);
 int main(int argc, char const *argv[])
 {
-    int one = 1;
-    int three = 3;
-    int five = 5;
-    int seven = 7;
-    display(seven);
+    int n;
+    printf("Enter the number of rows: ");
+    scanf("%d", &n);
+    // n must be odd
+    if (n % 2 == 0)
+    {
+        printf("Please enter odd number\n");
+        return 0;
+    }
+    display(n);
+
+    // int one = 1;
+    // int three = 3;
+    // int five = 5;
+    // int seven = 7;
+    // display(seven);
     // display(five);
     // display(three);
     // display(one);
@@ -55,7 +69,6 @@ void display(int n)
                 lower(j, n, i);
             }
         }
-
         printf("\n");
     }
 }
