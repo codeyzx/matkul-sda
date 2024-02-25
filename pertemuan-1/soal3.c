@@ -27,6 +27,10 @@ void printListForward(Node *head);
 // Fungsi untuk mencetak linked list dari belakang ke depan.
 void printListReverse(Node *head);
 
+void printListForwardRecursive(Node *head);
+
+void printListReverseRecursive(Node *head);
+
 // Fungsi untuk mencari posisi suatu data dalam linked list.
 void findDataPosition(Node *head, char data);
 
@@ -76,10 +80,10 @@ int main(int argc, char const *argv[])
             deleteNode(&head, key);
             break;
         case 5:
-            printListForward(head);
+            printListForwardRecursive(head);
             break;
         case 6:
-            printListReverse(head);
+            printListReverseRecursive(head);
             break;
         case 7:
             printf("Exiting...\n");
@@ -244,6 +248,29 @@ void printListReverse(Node *head)
         printf("%c%s", head->data, (head->prev == NULL) ? "" : ", ");
         head = head->prev;
     }
+}
+
+void printListReverseRecursive(Node *head)
+{
+    if (head == NULL)
+    {
+        printf("\n");
+        return;
+    }
+    printListReverseRecursive(head->next);
+    printf("%c%s", head->data, (head->prev == NULL) ? "" : ", ");
+}
+
+void printListForwardRecursive(Node *head)
+{
+
+    if (head == NULL)
+    {
+        printf("\n");
+        return;
+    }
+    printf("%c%s", head->data, (head->next == NULL) ? "" : ", ");
+    printListForwardRecursive(head->next);
 }
 
 void findDataPosition(Node *head, char data)
