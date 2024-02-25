@@ -1,0 +1,4 @@
+Jabar 4 2 24
+Jateng 2 1 26
+Riau 2 1 25
+Tokyo 2 1 15

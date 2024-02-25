@@ -1,0 +1,100 @@
+//***** KALAU KOTA NYA ADA YG SAMA
+Deklarasi Variabel:
+    propinsi: string
+    Vpropinsi: string
+    kota: string
+    currentCity: string
+    wanita: int
+    pria: int
+    sama: boolean
+    index: int
+    data: record berisikan subvar
+        name: string
+        kota: int
+        pria: int
+        penduduk: int
+    arrayData: array of record data
+    
+
+Algoritma:
+Begin
+    index <- 0
+    Read(File A) propinsi,kota,wanita,pria 
+    while Not EOF (File A) 
+        do
+            Vpropinsi <- propinsi
+            currentCity <- kota
+            sama <- .True.
+            arrayData[index].propinsi <- propinsi
+            Repeat
+                IF (Vpropinsi = propinsi)
+                    // ngitung jumlah kota di propinsi
+                    IF (currentCity <> kota) 
+                        IF (arrayData[index].kota = 0)
+                            arrayData[index].kota <- 1
+                        arrayData[index].kota <- arrayData[index].kota + 1
+                        currentCity <- kota
+                    // ngitung jumlah penduduk
+                    arrayData[index].penduduk <- arrayData[index].penduduk + (wanita + pria)
+                    // ngitung mayoritas pria
+                    IF (pria > wanita)
+                        arrayData[index].pria <- arrayData[index].pria + 1
+                    ENDIF
+                    Read(File A) propinsi,kota,wanita,pria 
+                Else 
+                    Write (File B) arrayData[index]
+                    sama <- .False.
+                    index <- index+1
+                EndIF
+            Until (EOF(File A)) or (Not sama)
+    endwhile 
+    
+End
+
+//***** KALAU KOTA NYA MUTLAK BEDA
+
+Kamus Data
+    propinsi: string
+    kota: string
+    wanita: int
+    pria: int
+    Vpropinsi: string
+    sama: boolean
+    index: int
+    data: record berisikan subvar
+        propinsi: string
+        kota: int
+        pria: int
+        penduduk: int
+    arrayData: array of record data
+    
+
+Algoritma:
+Begin
+    index <- 0
+    Read(File A) propinsi,kota,wanita,pria 
+    while Not EOF (File A) 
+        do
+            Vpropinsi <- propinsi
+            sama <- .True.
+            arrayData[index].propinsi <- propinsi
+            Repeat
+                IF (Vpropinsi = propinsi)
+                    // ngitung jumlah kota di propinsi
+                    arrayData[index].kota <- arrayData[index].kota + 1
+                    // ngitung jumlah penduduk
+                    arrayData[index].penduduk <- arrayData[index].penduduk + (wanita + pria)
+                    // ngitung mayoritas pria
+                    IF (pria > wanita)
+                        arrayData[index].pria <- arrayData[index].pria + 1
+                    ENDIF
+                    Read(File A) propinsi,kota,wanita,pria 
+                Else 
+                    Write (File B) arrayData[index]
+                    sama <- .False.
+                    index <- index+1
+                EndIF
+            Until (EOF(File A)) or (Not sama)
+    endwhile 
+    
+End
